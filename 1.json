@@ -98,7 +98,7 @@
         "{all}"
       ],
       "filter":[
-        {"action":"exclude","keywords":["网站|地址|过期|时间|有效"]}
+        {"action":"exclude","keywords":["有效|时间|到期|过期|expire|地址|网址|官网|网站|地址|自动|最优|最快|每月|一年"]}
       ]
     },
     {
@@ -108,7 +108,7 @@
         "{all}"
       ],
       "filter":[
-        {"action":"exclude","keywords":["网站|地址|剩余|过期|时间|有效"]}
+        {"action":"exclude","keywords":["剩余|流量|有效|时间|到期|过期|expire|地址|网址|官网|网站|地址|自动|最优|最快|每月|一年"]}
       ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "10m",
