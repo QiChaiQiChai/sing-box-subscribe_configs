@@ -1,0 +1,227 @@
+{
+  "log": {
+    "level": "info",
+    "timestamp": true
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "127.0.0.1:9090",
+      "external_ui": "web-ui",
+      "secret": "",
+      "external_ui_download_url": "https://github.com/MetaCubeX/Yacd-meta/archive/gh-pages.zip",
+      "default_mode": "rule"
+    },
+    "cache_file": {
+      "enabled": true,
+      "store_fakeip": false
+    }
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "listen": "::",
+      "listen_port": 2080,
+      "set_system_proxy": true,
+      "sniff": true,
+      "sniff_override_destination": false,
+      "tcp_fast_open": false,
+      "tcp_multi_path": false,
+      "udp_fragment": false
+    },
+    {
+      "type": "tun",
+      "interface_name": "sing-box",
+      "inet4_address": "172.19.0.1/30",
+      "mtu": 9000,
+      "auto_route": true,
+      "strict_route": true,
+      "endpoint_independent_nat": false,
+      "stack": "mixed",
+      "platform": {
+        "http_proxy": {
+          "enabled": true,
+          "server": "0.0.0.0",
+          "server_port": 2080
+        }
+      },
+      "sniff": true,
+      "sniff_override_destination": false
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "✈️ ‍起飞",
+      "type": "selector",
+      "outbounds": [
+        "⚡ ‍低延迟",
+        "{all}"
+      ],
+      "filter":[
+        {"action":"exclude","keywords":["距离|到期|过期|expire|地址|网址|官网|网站|地址|每月|一年"]}
+      ]
+    },
+    {
+      "tag": "⚡ ‍低延迟",
+      "type": "urltest",
+      "outbounds":[
+        "{all}"
+      ],
+      "filter":[
+        {"action":"exclude","keywords":["剩余|流量|到期|过期|expire|地址|网址|官网|网站|地址|每月|一年"]}
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "tolerance": 50
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    }
+  ],
+  "route": {
+    "rule_set": [
+      {
+        "tag": "CATEGORY-ADS",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "GEOIP-CN",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "GEOSITE-CN",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "GEOLOCATION-!CN",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
+        "download_detour": "direct"
+      }
+    ],
+    "rules": [
+      {
+        "protocol": "dns",
+        "port": 53,
+        "outbound": "dns-out"
+      },
+      {
+        "network": "udp",
+        "port": 443,
+        "outbound": "block"
+      },
+      {
+        "clash_mode": "direct",
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "global",
+        "outbound": "✈️ ‍起飞"
+      },
+      {
+        "rule_set": "CATEGORY-ADS",
+        "outbound": "block"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      },
+      {
+        "rule_set": "GEOIP-CN",
+        "outbound": "direct"
+      },
+      {
+        "rule_set": "GEOSITE-CN",
+        "outbound": "direct"
+      },
+      {
+        "rule_set": "GEOLOCATION-!CN",
+        "outbound": "✈️ ‍起飞"
+      }
+    ],
+    "final": "✈️ ‍起飞",
+    "auto_detect_interface": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "remote-dns",
+        "address": "tls://8.8.8.8",
+        "address_resolver": "remote-resolver-dns",
+        "detour": "✈️ ‍起飞"
+      },
+      {
+        "tag": "local-dns",
+        "address": "https://223.5.5.5/dns-query",
+        "address_resolver": "resolver-dns",
+        "detour": "direct"
+      },
+      {
+        "tag": "resolver-dns",
+        "address": "223.5.5.5",
+        "detour": "direct"
+      },
+      {
+        "tag": "remote-resolver-dns",
+        "address": "8.8.8.8",
+        "detour": "✈️ ‍起飞"
+      },
+      {
+        "tag": "block",
+        "address": "rcode://success"
+      }
+    ],
+    "rules": [
+      {
+        "outbound": "any",
+        "disable_cache": true,
+        "server": "local-dns"
+      },
+      {
+        "clash_mode": "direct",
+        "server": "local-dns"
+      },
+      {
+        "clash_mode": "global",
+        "server": "remote-dns"
+      },
+      {
+        "rule_set": "CATEGORY-ADS",
+        "server": "block"
+      },
+      {
+        "rule_set": "GEOSITE-CN",
+        "server": "local-dns"
+      },
+      {
+        "rule_set": "GEOLOCATION-!CN",
+        "server": "remote-dns"
+      }
+    ],
+    "fakeip": {
+      "enabled": false,
+      "inet4_range": "198.18.0.1/16",
+      "inet6_range": "fc00::/18"
+    },
+    "final": "remote-dns",
+    "strategy": "ipv4_only"
+  }
+}
