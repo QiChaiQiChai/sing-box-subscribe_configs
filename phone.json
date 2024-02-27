@@ -49,10 +49,10 @@
   ],
   "outbounds": [
     {
-      "tag": "✈️ ‍起飞",
+      "tag": "📦",
       "type": "selector",
       "outbounds": [
-        "⚡ ‍低延迟",
+        "⚡",
         "{all}"
       ],
       "filter":[
@@ -60,7 +60,7 @@
       ]
     },
     {
-      "tag": "⚡ ‍低延迟",
+      "tag": "⚡",
       "type": "urltest",
       "outbounds":[
         "{all}"
@@ -133,7 +133,7 @@
       },
       {
         "clash_mode": "global",
-        "outbound": "✈️ ‍起飞"
+        "outbound": "📦"
       },
       {
         "rule_set": "CATEGORY-ADS",
@@ -153,10 +153,10 @@
       },
       {
         "rule_set": "GEOLOCATION-!CN",
-        "outbound": "✈️ ‍起飞"
+        "outbound": "📦"
       }
     ],
-    "final": "✈️ ‍起飞",
+    "final": "📦",
     "auto_detect_interface": true
   },
   "dns": {
@@ -164,7 +164,7 @@
       {
         "tag": "remote-dns",
         "address": "tls://8.8.8.8",
-        "detour": "✈️ ‍起飞"
+        "detour": "📦"
       },
       {
         "tag": "local-dns",
