@@ -41,7 +41,7 @@
         "http_proxy": {
           "enabled": true,
           "server": "0.0.0.0",
-          "server_port": 2080
+          "server_port": 3080
         }
       },
       "sniff": true,
