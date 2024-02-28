@@ -20,7 +20,7 @@
     {
       "type": "mixed",
       "listen": "::",
-      "listen_port": 2080,
+      "listen_port": 3080,
       "set_system_proxy": true,
       "sniff": true,
       "sniff_override_destination": false,
