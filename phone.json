@@ -88,10 +88,31 @@
   "route": {
     "rule_set": [
       {
-        "tag": "CATEGORY-ADS",
+        "tag": "geosite-category-ads-all",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-ads-all.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-google",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/google.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geoip-google",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/google.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-openai",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs",
         "download_detour": "direct"
       },
       {
@@ -102,24 +123,38 @@
         "download_detour": "direct"
       },
       {
-        "tag": "GEOIP-CN",
+        "tag": "geosite-geolocation-!cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "GEOSITE-CN",
+        "tag": "geosite-cn",
         "type": "remote",
         "format": "binary",
         "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "GEOLOCATION-!CN",
+        "tag": "geoip-cn",
         "type": "remote",
         "format": "binary",
-        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-private",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/private.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geoip-private",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/private.srs",
         "download_detour": "direct"
       }
     ],
@@ -135,7 +170,7 @@
         "outbound": "block"
       },
       {
-        "rule_set": "CATEGORY-ADS",
+        "rule_set": "geosite-category-ads-all",
         "outbound": "block"
       },
       {
@@ -145,10 +180,6 @@
           "crashlytics.com"
         ],
         "outbound": "block"
-      },
-      {
-        "ip_is_private": true,
-        "outbound": "direct"
       },
       {
         "clash_mode": "direct",
@@ -174,20 +205,29 @@
         "outbound": "📦"
       },
       {
-        "rule_set": "geosite-tiktok",
+        "rule_set": [
+          "geosite-google",
+          "geoip-google",
+          "geosite-openai",
+          "geosite-tiktok",
+          "geosite-geolocation-!cn"
+        ],
         "outbound": "📦"
       },
       {
-        "rule_set": "GEOIP-CN",
+        "rule_set": [
+          "geosite-cn",
+          "geoip-cn"
+        ],
         "outbound": "direct"
       },
       {
-        "rule_set": "GEOSITE-CN",
+        "rule_set": "geosite-private",
         "outbound": "direct"
       },
       {
-        "rule_set": "GEOLOCATION-!CN",
-        "outbound": "📦"
+        "ip_is_private": true,
+        "outbound": "direct"
       }
     ],
     "final": "📦",
@@ -197,7 +237,7 @@
     "servers": [
       {
         "tag": "remote-dns",
-        "address": "tls://8.8.8.8",
+        "address": "https://8.8.8.8/dns-query",
         "detour": "📦"
       },
       {
@@ -225,7 +265,7 @@
         "server": "local-dns"
       },
       {
-        "rule_set": "CATEGORY-ADS",
+        "rule_set": "geosite-category-ads-all",
         "server": "block"
       },
       {
@@ -252,16 +292,17 @@
         "server": "remote-dns"
       },
       {
-        "rule_set": "geosite-tiktok",
+        "rule_set": [
+          "geosite-google",
+          "geosite-openai",
+          "geosite-tiktok",
+          "geosite-geolocation-!cn"
+        ],
         "server": "remote-dns"
       },
       {
-        "rule_set": "GEOSITE-CN",
+        "rule_set": "geosite-cn",
         "server": "local-dns"
-      },
-      {
-        "rule_set": "GEOLOCATION-!CN",
-        "server": "remote-dns"
       }
     ],
     "fakeip": {
