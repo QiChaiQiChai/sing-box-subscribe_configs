@@ -1,6 +1,6 @@
 {
   "log": {
-    "level": "info",
+    "level": "debug",
     "timestamp": true
   },
   "experimental": {
@@ -193,6 +193,14 @@
       },
       {
         "domain": [
+          "ghproxy.com",
+          "cdn.jsdelivr.net",
+          "testingcf.jsdelivr.net"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "domain": [
           "clash.razord.top",
           "yacd.metacubex.one",
           "yacd.haishan.me",
@@ -249,10 +257,6 @@
         "outbound": "direct"
       },
       {
-        "rule_set": "geosite-private",
-        "outbound": "direct"
-      },
-      {
         "ip_is_private": true,
         "outbound": "direct"
       }
@@ -279,14 +283,6 @@
     ],
     "rules": [
       {
-        "domain": [
-          "ghproxy.com",
-          "cdn.jsdelivr.net",
-          "testingcf.jsdelivr.net"
-        ],
-        "server": "local-dns"
-      },
-      {
         "outbound": "any",
         "disable_cache": true,
         "server": "local-dns"
@@ -311,6 +307,23 @@
       {
         "clash_mode": "global",
         "server": "remote-dns"
+      },
+      {
+        "domain": [
+          "ghproxy.com",
+          "cdn.jsdelivr.net",
+          "testingcf.jsdelivr.net"
+        ],
+        "server": "local-dns"
+      },
+      {
+        "domain": [
+          "clash.razord.top",
+          "yacd.metacubex.one",
+          "yacd.haishan.me",
+          "d.metacubex.one"
+        ],
+        "server": "local-dns"
       },
       {
         "domain_suffix": [
