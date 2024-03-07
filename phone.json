@@ -206,7 +206,7 @@
           "yacd.haishan.me",
           "d.metacubex.one"
         ],
-        "outbound": "direct"
+        "outbound": "📦"
       },
       {
         "domain_suffix": [
@@ -323,7 +323,7 @@
           "yacd.haishan.me",
           "d.metacubex.one"
         ],
-        "server": "local-dns"
+        "server": "remote-dns"
       },
       {
         "domain_suffix": [
