@@ -23,7 +23,7 @@
       "listen_port": 3080,
       "sniff": true,
       "sniff_override_destination": false,
-      "domain_strategy": "ipv4_only",
+      "domain_strategy": "prefer_ipv4",
       "tcp_fast_open": false,
       "tcp_multi_path": false,
       "udp_fragment": false
@@ -46,7 +46,7 @@
       },
       "sniff": true,
       "sniff_override_destination": false,
-      "domain_strategy": "ipv4_only"
+      "domain_strategy": "prefer_ipv4"
     }
   ],
   "outbounds": [
@@ -366,6 +366,6 @@
       "inet6_range": "fc00::/18"
     },
     "final": "remote-dns",
-    "strategy": "ipv4_only"
+    "strategy": "prefer_ipv4"
   }
 }
