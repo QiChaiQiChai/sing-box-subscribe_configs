@@ -58,7 +58,7 @@
           "{all}"
         ],
         "filter":[
-          {"action":"exclude","keywords":["NL|US|距离|到期|过期|expire|地址|网址|官网|网站|地址|每月|一年"]}
+          {"action":"exclude","keywords":["NL|US|请|距离|到期|过期|expire|地址|网址|官网|网站|地址|每月|一年"]}
         ]
       },
       {
@@ -68,7 +68,7 @@
           "{all}"
         ],
         "filter":[
-          {"action":"exclude","keywords":["NL|US剩余|流量|到期|过期|expire|地址|网址|官网|网站|地址|每月|一年"]}
+          {"action":"exclude","keywords":["NL|US|请|剩余|流量|到期|过期|expire|地址|网址|官网|网站|地址|每月|一年"]}
         ],
         "url": "http://www.gstatic.com/generate_204",
         "interval": "10m",
